@@ -116,7 +116,7 @@ var g_TotAnswer=
 	//13
 	["Brandy Alexander - 브랜디 알렉산더", 
 		['shaking', 'cocktail', 'nutmeg'],
-		[['brandy', '3/4'],['cacao', '3/4'],['mlik', '3/4']],
+		[['brandy', '3/4'],['cacaoB', '3/4'],['mlik', '3/4']],
 		["https://www.youtube.com/watch?v=9gelfaXaCME", 'https://namu.wiki/w/%EB%B8%8C%EB%9E%9C%EB%94%94%20%EC%95%8C%EB%A0%89%EC%82%B0%EB%8D%94']
 	],
 	//14
@@ -346,7 +346,7 @@ $( document ).ready(function() {
 	
 	for(var index = 0; index < g_TotAnswer.length; index++){
 	
-                var option = '<button type="button" onclick="location.href=\'joju.html?item='+index+'\'">'+g_TotAnswer[index][0]+'</button>'
+                var option = '<button type="button" onclick="location.href=\'index.html?item='+index+'\'">'+g_TotAnswer[index][0]+'</button>'
 				$('#myChoice').append(option);
 	}
 	
@@ -453,6 +453,6 @@ $( document ).ready(function() {
 	<hr>
 	<div id='reuslt'></div>
 	
-	<div id='myChoice'><button type="button" onclick="location.href='joju.html'">무작위 선택</button><br></div>
+	<div id='myChoice'><button type="button" onclick="location.href='index.html'">무작위 선택</button><br></div>
 </body>
 </html>
