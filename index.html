@@ -882,7 +882,8 @@ $( document ).ready(function() {
 					for(var i = 0; i < g_answer.length; i++){
 						var tTemp = false;
 						for(var j = 0; j < answer.length; j++){
-							if (g_answer[i][1].match(answer[j][1]) != null) {
+							if (g_answer[i][0].match(answer[j][0]) != null && 
+                                                            g_answer[i][1].match(answer[j][1]) != null ) {) {
 								tTemp = true;
 								break;
 							}
