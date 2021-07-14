@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+	.close {
+		color: #D61B30;
+	}
+	.open {
+		color: #175497;
+	}
+</style>
+<script>
+
+var g_date = getParameterByName('date');
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function GetMartClose(year, mon, date, strVal, strID)
+{
+	var index = 0
+	while(1)
+	{
+		var IsSunDateObj	= new Date(year, mon, date+index);
+		var IsSunDay	= IsSunDateObj.getDay();
+		var IsSunDate	= IsSunDateObj.getDate();
+		if (IsSunDay == 0)
+		{
+			var text = document.getElementById(strID);
+			if (Math.ceil(IsSunDate / 7) == 2 || Math.ceil(IsSunDate / 7) == 4 )
+			{
+				console.log("이번주 일요일 ( "+(IsSunDateObj.getMonth()+1)+"월 "+ IsSunDateObj.getDate() + " ) 는 쉽니다.")
+				text.textContent = strVal + " 일요일 ( "+(IsSunDateObj.getMonth()+1)+"월 "+ IsSunDateObj.getDate() + " ) 는 쉽니다."
+				text.className = "close"
+			}
+			else
+			{
+				console.log("이번주 일요일 ( "+(IsSunDateObj.getMonth()+1)+"월 "+ IsSunDateObj.getDate() + " ) 는 안 쉽니다!!!!!!!!!!")
+				//console.log("이번주는 안 쉽니다!!!!!!!!!!")
+				text.textContent = strVal + " 일요일 ( "+(IsSunDateObj.getMonth()+1)+"월 "+ IsSunDateObj.getDate() + " ) 는 안 쉽니다."
+				text.className = "open"
+			}
+			break;
+		}
+		index++;
+	}
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+	// Handler when the DOM is fully loaded
+
+	var today = new Date()
+
+
+
+	var text		= document.getElementById('todayDate');
+	text.textContent	= "오늘은 "+(today.getMonth()+1) +" 월 " +today.getDate()+" 일 입니다."
+
+	GetMartClose(today.getFullYear(), today.getMonth(), today.getDate(), "이번주", "closeDate1")
+	GetMartClose(today.getFullYear(), today.getMonth(), today.getDate()+7, "다음주", "closeDate2")
+	GetMartClose(today.getFullYear(), today.getMonth(), today.getDate()+14, "3주 뒤", "closeDate3")
+	GetMartClose(today.getFullYear(), today.getMonth(), today.getDate()+21, "4주 뒤", "closeDate4")
+});
+
+
+</script>
+</head>
+<body>
+<H1 id='todayDate'></H1>
+<H2 id='closeDate1'></H2>
+<H2 id='closeDate2'></H2>
+<H2 id='closeDate3'></H2>
+<H2 id='closeDate4'></H2>
+</body>
+</html>
