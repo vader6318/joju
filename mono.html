@@ -51,6 +51,38 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function fnLoad()
+{
+	var htmlUsers = ""
+	var htmlUsersRadio = ""
+
+	lstUser.forEach(function(a){
+		userVal = localStorage[a]
+		userSumVal = localStorage['#'+a+'_sum']
+
+		if (userVal !=  undefined && userVal.length > 0)
+		{
+			htmlUsers	+= '<div id="User_B">'
+			htmlUsers	+= userVal
+			htmlUsers	+= '<button onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">[+ 더하기]</button>'
+			htmlUsers	+= '<button onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal + "', 'Minus')" + '">[- 뺴기]</button>'
+			htmlUsers	+= '<button onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button>'
+			htmlUsers	+= '<div id="' + a +'_sum">' + userSumVal +'</div>'
+			htmlUsers	+= '</div>'
+
+			htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
+			
+			
+		}
+	})
+
+	$('#Users').html(htmlUsers)
+
+	$('#Users_Raido').html(htmlUsersRadio)
+
+	$('#startButon').hide()
+}
+
 function init()
 {
 	$( "#dialog_Init").dialog({
@@ -76,6 +108,8 @@ function init()
 				htmlUsers	+= '</div>'
 
 				htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
+				
+				localStorage[a] = userVal
 			}
 		})
 
@@ -83,6 +117,7 @@ function init()
 
 		$('#Users_Raido').html(htmlUsersRadio)
 
+		localStorage.use = "Y"
 		$('#startButon').hide()
 	    }
 	  },
@@ -91,8 +126,9 @@ function init()
 	}).dialog( "open" );
 }
 
-function reset()
+function fnReset()
 {
+	localStorage.clear();
 }
 
 function fnCalc(userID, type, valPrice, msgPopup)
@@ -128,6 +164,8 @@ function fnCalc(userID, type, valPrice, msgPopup)
 	} else {
 		$(id).text(Number($(id).text())-Number(valPrice))
 	}
+
+	localStorage[id] = $(id).text()
 }
 
 function fnPopupEdit(userID, userNM, type)
@@ -135,14 +173,12 @@ function fnPopupEdit(userID, userNM, type)
 	var msg = "더할 숫자를 입력하세요"
 	if (type == "Plus")
 	{
-		type = 1
 		msg = "더할 숫자를 입력하세요"
 	} else {
-		type = 2
 		msg = "뺄 숫자를 입력하세요"
 	}
 
-	var id = userID+"_sum"
+	var id = userID
 
 	$('#dialog_Edit').dialog({
 	  title: "[" + userNM +"] " + msg,
@@ -150,20 +186,12 @@ function fnPopupEdit(userID, userNM, type)
 	  buttons: {
 	    "[ 200 ]": function() {
 		valPrice = 200
-		if (type == 1) {
-			$(id).text(Number($(id).text())+Number(valPrice))	
-		} else {
-			$(id).text(Number($(id).text())-Number(valPrice))
-		}
+		fnCalc(id, type, valPrice, "N")
 		$('#dialog_Edit').dialog( "close" );
 	    },
 	    "[ 100 ]": function() {
 		valPrice = 100
-		if (type == 1) {
-			$(id).text(Number($(id).text())+Number(valPrice))	
-		} else {
-			$(id).text(Number($(id).text())-Number(valPrice))
-		}
+		fnCalc(id, type, valPrice, "N")
 		$('#dialog_Edit').dialog( "close" );
 	    }, 
 	    "적용": function() {
@@ -172,11 +200,7 @@ function fnPopupEdit(userID, userNM, type)
 		if (isNaN(valPrice)) {
 			alert("숫자만 입력하세요")
 		} else {
-			if (type == 1) {
-				$(id).text(Number($(id).text())+Number(valPrice))	
-			} else {
-				$(id).text(Number($(id).text())-Number(valPrice))
-			}
+			fnCalc(id, type, valPrice, "N")
 			$('#dialog_Edit').dialog( "close" );
 		}
 
@@ -226,6 +250,10 @@ function fnPopup(userID, userNM)
 
 $( document ).ready(function() {
     console.log( "ready!" );
+    if (localStorage.use == "Y")
+    {
+	fnLoad()
+    }
 });
 
 $( function() {
@@ -290,6 +318,6 @@ $( function() {
 
 
 <button id="startButon" onClick="init()">시작</button>
-<button id="resetButon" onClick="reset()">초기화</button>
+<button id="resetButon" onClick="fnReset()">초기화</button>
 </body>
 </html>
