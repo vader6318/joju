@@ -66,7 +66,6 @@ function fnLoad()
 {
 	var htmlUsers = ""
 	var htmlUsersRadio = ""
-
 	lstUser.forEach(function(a){
 		userVal = localStorage[a]
 		userSumVal = localStorage['#'+a+'_sum']
@@ -83,8 +82,6 @@ function fnLoad()
 			htmlUsers	+= '</div><hr>'
 
 			htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
-			
-			
 		}
 	})
 
@@ -106,23 +103,23 @@ function init()
 
 		var htmlUsers = ""
 		var htmlUsersRadio = ""
+		userSumVal = 1500
 		lstUser.forEach(function(a){
 			userVal = $('#'+a).val()
 			if (userVal.length > 0)
 			{
-
-				htmlUsers	+= '<div id="' + a + '" class="nameTag" >'
-				htmlUsers	+= userVal
-				htmlUsers	+= '<button class="buttonTag buttonPlus" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">[+ 더하기]</button>'
-				htmlUsers	+= '<button class="buttonTag buttonMinus" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal + "', 'Minus')" + '">[- 뺴기]</button>'
-				htmlUsers	+= '<button class="buttonTag buttonChange" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button>'
-				htmlUsers	+= '<div class="sumTag" id="' + a +'_sum">1500</div>'
-				htmlUsers	+= '</div>'
+				htmlUsers	+= '<div id="' + a + '" class="userTag" >'
+				htmlUsers	+= '<div><H2><div class="nameTag" >' +userVal + '</div>'
+				htmlUsers	+= '<div class="sumTag" id="' + a +'_sum">' + userSumVal + '</div></H2></div>'
+				htmlUsers	+= '<div class="buttonDivTag"><button class="buttonTag buttonPlus btn btn-success" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">+ + +</button>'
+				htmlUsers	+= '<button class="buttonTag buttonMinus btn btn-danger" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal + "', 'Minus')" + '">- - -</button>'
+				htmlUsers	+= '<button class="buttonTag buttonChange btn btn-info" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button></div>'
+				htmlUsers	+= '</div><hr>'
 
 				htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
 				
 				localStorage[a] = userVal
-				localStorage['#'+a+'_sum'] = 1500
+				localStorage['#'+a+'_sum'] = userSumVal
 			}
 		})
 
@@ -142,6 +139,7 @@ function init()
 function fnReset()
 {
 	localStorage.clear();
+	location.reload();
 }
 
 function fnCalc(userID, type, valPrice, msgPopup)
