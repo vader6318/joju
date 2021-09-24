@@ -27,6 +27,9 @@
 
 
 <style>
+  body {
+	background-color : #a690d6;
+  }
   .susiDish0{
     color: #37eb34;
   }
@@ -51,6 +54,23 @@
   .susiDish7{
     color: #db1f32;
   }
+  .btn {
+   width: 60px;
+   height: 40px;
+  }
+  td {
+  color : #ffffff
+  }
+td {
+    color: #FFFFFF;
+    border: solid 1px;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: #111111;
+}
 </style>
 <script>
 
@@ -166,8 +186,8 @@ document.addEventListener("DOMContentLoaded", function(){
   susiPrices.forEach(function(susiPrice, index){
     html += "<tr>"
     html +=   "<td class='susiDish"+index+"'>" + susiPrice[0] + "</td>"
-    html +=   "<td>수량 : <input id='dish"+index+"_value' style='width:30px' value='0' onchange='susiSum("+index+")'></td>"
-    html +=   "<td colsapn='1'><button id='dish"+index+"_add' onclick='susiAdd("+index+")'>+</button><button id='dish"+index+"_del' onclick='susiDel("+index+")'>-</button></td>"
+    html +=   "<td>수량 : <input id='dish"+index+"_value' style='width:60px' value='0' onchange='susiSum("+index+")'></td>"
+    html +=   "<td colsapn='1'><button class='btn btn-primary' id='dish"+index+"_add' onclick='susiAdd("+index+")'>+</button><button class='btn btn-primary' id='dish"+index+"_del' onclick='susiDel("+index+")'>-</button></td>"
     html += "</tr>"
     
     html += "<tr>"
