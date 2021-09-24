@@ -25,6 +25,15 @@ body
 {
   background-color: #010810;
 }
+
+	.buttonTag {
+		width:120px; float:right;
+	}
+	.btn-number {
+		width:100px; 
+		height:50px; 
+		font-size: 20px !important;;
+	}
     label, input { display:block; }
     input.text { margin-bottom:12px; width:95%; padding: .4em; }
     fieldset { padding:0; border:0; margin-top:25px; }
@@ -51,9 +60,6 @@ body
         width:fit-contents;
         margin:auto;
     }
-    .buttonTag {
-        width:120px; float:right;
- }
   </style>
 
 <script>
@@ -76,7 +82,6 @@ function fnLoad()
 
 		if (userVal !=  undefined && userVal.length > 0)
 		{
-
 			htmlUsers	+= '<div id="' + a + '" class="userTag" >'
 			htmlUsers	+= '<div><H2><div class="nameTag" >' +userVal + '</div>'
 			htmlUsers	+= '<div class="sumTag" id="' + a +'_sum">' + userSumVal + '</div></H2></div>'
@@ -200,32 +205,42 @@ function fnPopupEdit(userID, userNM, type)
 	$('#dialog_Edit').dialog({
 	  title: "[" + userNM +"] " + msg,
 	  modal: true,
+	  width: "360px",
 	  buttons: [
 		{
 			text: "200",
 			"class": 'btn btn-primary',
 			click: function() {
-				valPrice = 200
-				fnCalc(id, type, valPrice, "N")
-				$('#dialog_Edit').dialog( "close" );
+				price = Number($('#User_Price_Edit').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price_Edit').val( price + 200)
+				}
 			}
 		},
 		{
 			text: "100",
 			"class": 'btn btn-primary',
 			click: function() {
-				valPrice = 100
-				fnCalc(id, type, valPrice, "N")
-				$('#dialog_Edit').dialog( "close" );
+				price = Number($('#User_Price_Edit').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price_Edit').val( price + 100)
+				}
 			}
 		},
 		{
 			text: "50",
 			"class": 'btn btn-primary',
 			click: function() {
-				valPrice = 50
-				fnCalc(id, type, valPrice, "N")
-				$('#dialog_Edit').dialog( "close" );
+				price = Number($('#User_Price_Edit').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price_Edit').val( price + 50)
+				}
 			}
 		},
 		{
@@ -255,6 +270,7 @@ function fnPopup(userID, userNM)
 	$('#dialog_Change').dialog({
 	  title: "[" + userNM +"] 누구에게 전달 할까요?",
 	  modal: true,
+	  width: "360px",
 	  buttons: [
 
 		{
@@ -366,7 +382,33 @@ $( function() {
 
   } );
 
+function addNumber(number, edit)
+{
+	val = $(edit).val()
+	val += number;
+	$(edit).val(val)
+}
 
+function delNumber(type, edit)
+{
+	if (type == 'C')
+	{
+		$(edit).val("")
+	}
+	else
+	{
+		val = $(edit).val()
+		val = val.substr(0,val.length-1)
+		$(edit).val(val)
+	}
+}
+
+function plusNumber(number, edit)
+{
+	val = Number($(edit).val())
+	val += Number(number);
+	$(edit).val(val)
+}
 
 </script>
 </head>
@@ -383,15 +425,59 @@ $( function() {
 
 <div id="dialog_Edit">
     <p>금액을 입력 해주세요.</p>
-    <input type="text" type="number" name="금액" id="User_Price_Edit" value="" class="text ui-widget-content ui-corner-all">
+    <input type="text" type="number" name="금액" id="User_Price_Edit" value="" class="text ui-widget-content ui-corner-all" readonly>
+	<table>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('7', '#User_Price_Edit')">7</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('8', '#User_Price_Edit')">8</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('9', '#User_Price_Edit')">9</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('4', '#User_Price_Edit')">4</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('5', '#User_Price_Edit')">5</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('6', '#User_Price_Edit')">6</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('1', '#User_Price_Edit')">1</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('2', '#User_Price_Edit')">2</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('3', '#User_Price_Edit')">3</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="delNumber('C', '#User_Price_Edit')">Clear</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('0', '#User_Price_Edit')">0</button></td>
+			<td><button class="btn btn-number" onClick="delNumber('D', '#User_Price_Edit')">Delete</button></td>
+		</tr>
+	</table>
 </div>
 
 <div id="dialog_Change">
-    <p>금액을 입력 해주세요.</p>
-    <input type="text" type="number" name="금액" id="User_Price" value="" class="text ui-widget-content ui-corner-all">
     <p>받을 사람을 선택 해주세요</p>
     <div id=Users_Raido>
     </div>
+    <p>금액을 입력 해주세요.</p>
+    <input type="text" type="number" name="금액" id="User_Price" value="" class="text ui-widget-content ui-corner-all" readonly>
+	<table>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('7', '#User_Price')">7</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('8', '#User_Price')">8</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('9', '#User_Price')">9</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('4', '#User_Price')">4</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('5', '#User_Price')">5</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('6', '#User_Price')">6</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="addNumber('1', '#User_Price')">1</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('2', '#User_Price')">2</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('3', '#User_Price')">3</button></td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-number" onClick="delNumber('C', '#User_Price')">Clear</button></td>
+			<td><button class="btn btn-number" onClick="addNumber('0', '#User_Price')">0</button></td>
+			<td><button class="btn btn-number" onClick="delNumber('D', '#User_Price')">Delete</button></td>
+		</tr>
+	</table>
 </div>
 
 </body>
