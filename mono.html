@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, width=device-width">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, width=device-width">
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
@@ -37,19 +37,23 @@ body
    hr {
     border: 2;
     border-top: 1px solid #F0F3F4;
+    clear:both;
     }
     .sumTag { float:right }
     .nameTag { float:left }
     .buttonDivTag { clear:both }
 
     #wrapper{
-        width:300px;
+        width:100%;
         margin:auto;
     }
     #txtContact{
-        width:fit-content;
+        width:fit-contents;
         margin:auto;
     }
+    .buttonTag {
+        width:120px; float:right;
+ }
   </style>
 
 <script>
@@ -76,10 +80,11 @@ function fnLoad()
 			htmlUsers	+= '<div id="' + a + '" class="userTag" >'
 			htmlUsers	+= '<div><H2><div class="nameTag" >' +userVal + '</div>'
 			htmlUsers	+= '<div class="sumTag" id="' + a +'_sum">' + userSumVal + '</div></H2></div>'
-			htmlUsers	+= '<div class="buttonDivTag"><button class="buttonTag buttonPlus btn btn-success" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">+ + +</button>'
+			htmlUsers	+= '<div class="buttonDivTag">'
+			htmlUsers	+= '<button class="buttonTag buttonChange btn btn-info" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button>'
 			htmlUsers	+= '<button class="buttonTag buttonMinus btn btn-danger" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal + "', 'Minus')" + '">- - -</button>'
-			htmlUsers	+= '<button class="buttonTag buttonChange btn btn-info" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button></div>'
-			htmlUsers	+= '</div><hr>'
+			htmlUsers	+= '<button class="buttonTag buttonPlus btn btn-success" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">+ + +</button>'
+			htmlUsers	+= '</div></div><hr>'
 
 			htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
 		}
@@ -111,10 +116,11 @@ function init()
 				htmlUsers	+= '<div id="' + a + '" class="userTag" >'
 				htmlUsers	+= '<div><H2><div class="nameTag" >' +userVal + '</div>'
 				htmlUsers	+= '<div class="sumTag" id="' + a +'_sum">' + userSumVal + '</div></H2></div>'
-				htmlUsers	+= '<div class="buttonDivTag"><button class="buttonTag buttonPlus btn btn-success" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">+ + +</button>'
+				htmlUsers	+= '<div class="buttonDivTag">'
+				htmlUsers	+= '<button class="buttonTag buttonChange btn btn-info" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button>'
 				htmlUsers	+= '<button class="buttonTag buttonMinus btn btn-danger" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal + "', 'Minus')" + '">- - -</button>'
-				htmlUsers	+= '<button class="buttonTag buttonChange btn btn-info" onClick="fnPopup(' + "'#" + a + "', '" + userVal + "'" + ')">전달하기</button></div>'
-				htmlUsers	+= '</div><hr>'
+				htmlUsers	+= '<button class="buttonTag buttonPlus btn btn-success" onClick="fnPopupEdit(' + "'#" + a + "', '" + userVal +"','Plus')" + '">+ + +</button>'
+				htmlUsers	+= '</div></div><hr>'
 
 				htmlUsersRadio	+= '<label><input type="radio" name="user" value="#' + a+ '">' + userVal + '</label>'
 				
@@ -250,6 +256,43 @@ function fnPopup(userID, userNM)
 	  title: "[" + userNM +"] 누구에게 전달 할까요?",
 	  modal: true,
 	  buttons: [
+
+		{
+			text: "200",
+			"class": 'btn btn-primary',
+			click: function() {
+				price = Number($('#User_Price').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price').val(price + 200)
+				}
+			}
+		},
+		{
+			text: "100",
+			"class": 'btn btn-primary',
+			click: function() {
+				price = Number($('#User_Price').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price').val(price + 100)
+				}
+			}
+		},
+		{
+			text: "50",
+			"class": 'btn btn-primary',
+			click: function() {
+				price = Number($('#User_Price').val())
+				if (isNaN(price)) {
+					alert("숫자만 입력하세요")
+				} else {
+					$('#User_Price').val(price + 50)
+				}
+			}
+		},
 		{
 			text: "보내기",
 			"class": 'btn btn-primary',
@@ -329,8 +372,7 @@ $( function() {
 </head>
 <body>
 <div id="txtContact">
-	<div id="Users">
-	</div>
+	<div id="Users"></div>
 
 	<button id="startButon" class="btn" onClick="init()">시작</button>
 	<button id="resetButon" class="btn" onClick="fnReset()">초기화</button>
