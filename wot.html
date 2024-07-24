@@ -74,6 +74,9 @@
 		});
 		
 		document.getElementById("id_text_out").value = new_str 
+
+		document.getElementById("id_text_out").select();
+    		document.execCommand('copy');
 	}
 
 
@@ -84,11 +87,11 @@
 <H2 id='closeDate1'></H2>
 <H2 id='closeDate2'></H2>
 <br>
-<textarea style="width:100%;" id="id_text"></textarea>
-<br>
 	<input type='button' 
          value='클릭해보세요' 
          onclick='doSplit()'/>
+<br>
+<textarea style="width:100%;" rows="40" id="id_text"></textarea>
 <br>
 <textarea style="width:100%;" id="id_text_out"></textarea>
 <br>
