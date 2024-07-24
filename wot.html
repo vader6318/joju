@@ -61,7 +61,7 @@
 				else if (i == 2){	new_str += "\t" + element2		}
 				else {
 					element2 = element2.replace(/,/g, '');
-					if ( isNaN(Number(element2)) == true)
+					if ( element2!= " " && isNaN(Number(element2)) == true)
 					{
 						new_str += " " + element2
 					}
