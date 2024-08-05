@@ -37,7 +37,7 @@
         goal = Math.ceil((tot_day-remain_day)*(150/(tot_day))%50)
     
         var text	= document.getElementById('closeDate1');
-        text.textContent	= "시작 일 "+(sday.getMonth()) +" 월 " +sday.getDate()+" 일 입니다."
+        text.textContent	= "시작 일 "+(sday.getMonth()) +" 월 " +sday.getDate()+" 일 입니다. 오늘은" + tday.getMonth() + "월 " + tday.getDate()+"일입니다."
     
         text	= document.getElementById('closeDate2');
         text.textContent += "종료 일 "+(dday.getMonth()) +" 월 " +dday.getDate()+" 일 입니다."
