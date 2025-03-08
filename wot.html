@@ -63,7 +63,7 @@
 	LastData = String(mData-(today.getDate()*perDay).toFixed(2))
 	    
 	var text2	= document.getElementById('UseData');
-	text2 = "모바일 데이터 사용량 오늘 까지 : "+ UseData +"MB 남은 데이터 : "+ LastData + " MB"
+	text2.textContent = "모바일 데이터 사용량 오늘 까지 : "+ UseData +"MB 남은 데이터 : "+ LastData + " MB"
     });
 
 	function doSplit()
