@@ -39,16 +39,31 @@
         
         goal = Math.ceil((tot_day-remain_day)*(150/(tot_day))%50)
 	goal2 = Math.ceil((tot_day-remain_day2)*(150/(tot_day))%50)
-    
+
         var text	= document.getElementById('closeDate1');
         //text.textContent	= "오늘은" + tday.getMonth() + "월 " + tday.getDate()+"일입니다. 시작 일 "+(sday.getMonth()) +" 월 " +sday.getDate()+" 일 입니다 " +  "- 종료 일 "+(dday.getMonth()) +" 월 " +dday.getDate()+" 일 입니다."
-	    text.textContent	= "오늘은" + tday.getMonth() + "월 " + tday.getDate()+"일입니다. ("+String(remain_day)+" 남았습니다.)"+(sday.getMonth()) +"/" +sday.getDate()+" ~ "+(dday.getMonth()) +"/" +dday.getDate()
+	text.textContent	= "오늘은" + tday.getMonth() + "월 " + tday.getDate()+"일입니다. ("+String(remain_day)+" 남았습니다.)"+(sday.getMonth()) +"/" +sday.getDate()+" ~ "+(dday.getMonth()) +"/" +dday.getDate()
     
         //text	= document.getElementById('closeDate2');
         //text.textContent += "종료 일 "+(dday.getMonth()) +" 월 " +dday.getDate()+" 일 입니다."
     
         text	= document.getElementById('todayDate');
         text.textContent += "배틀패스 점수는 " + String(goal) + "("+String(goal)*50+" / "+ (String(goal)*50+2500) +")까지 해야 합니다. 내일은 "+String(goal2) +" 까지 해야 합니다."
+
+
+
+    	mData = 11000;
+	let m1day = new Date(date .getFullYear(), date .getMonth(), 1);
+	let m2day = new Date(date .getFullYear(), date .getMonth()+1, 1);
+	m3day= new Date(m2day - 3600*24*1000);
+	let perDay = mData/((m3day-m1day)/3600/24/1000+1)
+	let today = new Date()
+	today.getDate()
+	UseData = String((today.getDate()*perDay).toFixed(2))
+	LastData = String(mData-(today.getDate()*perDay).toFixed(2))
+	    
+	var text2	= document.getElementById('UseData');
+	text2 = "모바일 데이터 사용량 오늘 까지 : "+ UseData +"MB 남은 데이터 : "+ LastData + " MB"
     });
 
 	function doSplit()
@@ -89,6 +104,7 @@
 </script>
 </head>
 <body>
+<H1 id='UseData'></H1>
 <H1 id='todayDate'></H1>
 <H2 id='closeDate1'></H2>
 <br>
