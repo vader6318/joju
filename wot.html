@@ -30,8 +30,8 @@
         let dday = new Date(2025, 6, 3);
         date = new Date()
         let tday = new Date(date .getFullYear(), date .getMonth()+1, date .getDate());
-	let nday = new Date(date .getFullYear(), date .getMonth()+1, date .getDate()+1);
-	let n2day = new Date(date .getFullYear(), date .getMonth()+2, date .getDate()+2);
+	let nday = date.setDate(date.getDate() + 1);
+	let n2day = date.setDate(date.getDate() + 2);
         
         tot_day = (dday - sday)/3600/24/1000
         remain_day = (dday - tday)/3600/24/1000-1
